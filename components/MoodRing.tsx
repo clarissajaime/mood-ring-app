@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import GenerativeArt from "./GenerativeArt";
 
 type Mood = "anger" | "fear" | "joy" | "love" | "sadness" | "surprise";
 
@@ -24,7 +25,9 @@ const MoodRing: React.FC = () => {
       <div className="w-48 h-48 rounded-full bg-white flex items-center justify-center shadow-lg">
         <div
           className={`w-40 h-40 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring`}
-        ></div>
+        >
+          <GenerativeArt mood={mood} />
+        </div>
       </div>
       <h1 className="text-3xl font-bold mt-8 text-white capitalize">{mood}</h1>
       <div className="mt-8">
