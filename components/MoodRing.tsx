@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import GenerativeArt from "./GenerativeArt";
+import BackgroundArt from "./BackgroundArt";
 
 type Mood = "anger" | "fear" | "joy" | "love" | "sadness" | "surprise";
 
