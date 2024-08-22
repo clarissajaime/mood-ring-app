@@ -18,9 +18,11 @@ const moods: Mood[] = ["anger", "fear", "joy", "love", "sadness", "surprise"];
 const MoodRing: React.FC = () => {
   const [mood, setMood] = useState<Mood>("joy");
   const [gifUrl, setGifUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchGif = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`/api/giphy?mood=${mood}`);
         const data = await response.json();
@@ -34,6 +36,7 @@ const MoodRing: React.FC = () => {
         console.error("Error fetching GIF:", error);
         setGifUrl(null);
       }
+      setIsLoading(false);
     };
 
     fetchGif();
@@ -45,16 +48,19 @@ const MoodRing: React.FC = () => {
     >
       <div className="w-96 h-96 rounded-full bg-white flex items-center justify-center shadow-lg">
         <div
-          className={`w-80 h-80 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring`}
+          className={`w-80 h-80 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring relative overflow-hidden`}
         >
           {gifUrl && (
             <Image
               unoptimized
               src={gifUrl}
               alt={mood}
-              className="absolute inset-0 z-0 w-full h-full object-cover rounded-full"
+              className={`absolute inset-0 z-0 w-full h-full object-cover rounded-full transition-opacity duration-300 ${
+                isLoading ? "opacity-0" : "opacity-100"
+              }`}
               width={320}
               height={320}
+              onLoadingComplete={() => setIsLoading(false)}
             />
           )}
         </div>
