@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import GenerativeArt from "./GenerativeArt";
 
 type Mood = "anger" | "fear" | "joy" | "love" | "sadness" | "surprise";
 
@@ -43,18 +42,17 @@ const MoodRing: React.FC = () => {
     <div
       className={`flex flex-col items-center justify-center min-h-screen ${moodColors[mood]} transition-all duration-300`}
     >
-      <div className="w-48 h-48 rounded-full bg-white flex items-center justify-center shadow-lg">
-        {gifUrl && (
-          <img
-            src={gifUrl}
-            alt={mood}
-            className="absolute inset-0 z-0 w-full h-full object-cover opacity-50"
-          />
-        )}
+      <div className="w-96 h-96 rounded-full bg-white flex items-center justify-center shadow-lg">
         <div
-          className={`w-40 h-40 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring`}
+          className={`w-80 h-80 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring`}
         >
-          <GenerativeArt mood={mood} />
+          {gifUrl && (
+            <img
+              src={gifUrl}
+              alt={mood}
+              className="absolute inset-0 z-0 w-full h-full object-cover rounded-full"
+            />
+          )}
         </div>
       </div>
       <h1 className="text-3xl font-bold mt-8 text-white capitalize">{mood}</h1>
