@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 type Mood = "anger" | "fear" | "joy" | "love" | "sadness" | "surprise";
 
@@ -47,10 +48,12 @@ const MoodRing: React.FC = () => {
           className={`w-80 h-80 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring`}
         >
           {gifUrl && (
-            <img
+            <Image
               src={gifUrl}
               alt={mood}
               className="absolute inset-0 z-0 w-full h-full object-cover rounded-full"
+              width={320}
+              height={320}
             />
           )}
         </div>
