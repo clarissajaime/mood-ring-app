@@ -65,18 +65,25 @@ const MoodRing: React.FC = () => {
           )}
         </div>
       </div>
-      <h1 className="text-3xl font-bold mt-8 text-white capitalize">{mood}</h1>
-      <div className="mt-8">
+      <h1 className="text-5xl font-bold mt-8 text-white capitalize">{mood}</h1>
+      <div className="mt-8 w-full px-4 sm:px-0 sm:w-auto">
         {moods.map((m) => (
           <button
             key={m}
-            className={`mx-2 px-4 py-2 rounded-lg text-white font-semibold ${moodColors[m]} hover:opacity-80 transition-opacity duration-300`}
+            className={`w-full sm:w-auto mb-2 sm:mb-0 sm:mx-2 px-4 py-2 rounded-lg text-white font-semibold ${moodColors[m]} hover:opacity-80 transition-opacity duration-300`}
             onClick={() => setMood(m)}
           >
             {m.charAt(0).toUpperCase() + m.slice(1)}
           </button>
         ))}
       </div>
+      <Image
+        src="/giphy-logo-2.png"
+        alt="Giphy Logo"
+        width={100}
+        height={50}
+        className="mt-8"
+      />
     </div>
   );
 };
