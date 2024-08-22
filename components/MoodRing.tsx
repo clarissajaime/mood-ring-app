@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GenerativeArt from "./GenerativeArt";
-import BackgroundArt from "./BackgroundArt";
 
 type Mood = "anger" | "fear" | "joy" | "love" | "sadness" | "surprise";
 
@@ -18,12 +17,40 @@ const moods: Mood[] = ["anger", "fear", "joy", "love", "sadness", "surprise"];
 
 const MoodRing: React.FC = () => {
   const [mood, setMood] = useState<Mood>("joy");
+  const [gifUrl, setGifUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchGif = async () => {
+      try {
+        const response = await fetch(`/api/giphy?mood=${mood}`);
+        const data = await response.json();
+
+        if (response.ok && data.gifUrl) {
+          setGifUrl(data.gifUrl);
+        } else {
+          setGifUrl(null);
+        }
+      } catch (error) {
+        console.error("Error fetching GIF:", error);
+        setGifUrl(null);
+      }
+    };
+
+    fetchGif();
+  }, [mood]);
 
   return (
     <div
       className={`flex flex-col items-center justify-center min-h-screen ${moodColors[mood]} transition-all duration-300`}
     >
       <div className="w-48 h-48 rounded-full bg-white flex items-center justify-center shadow-lg">
+        {gifUrl && (
+          <img
+            src={gifUrl}
+            alt={mood}
+            className="absolute inset-0 z-0 w-full h-full object-cover opacity-50"
+          />
+        )}
         <div
           className={`w-40 h-40 rounded-full ${moodColors[mood]} transition-all duration-300 pulse-ring`}
         >
