@@ -49,6 +49,7 @@ const MoodRing: React.FC = () => {
         >
           {gifUrl && (
             <Image
+              unoptimized
               src={gifUrl}
               alt={mood}
               className="absolute inset-0 z-0 w-full h-full object-cover rounded-full"
